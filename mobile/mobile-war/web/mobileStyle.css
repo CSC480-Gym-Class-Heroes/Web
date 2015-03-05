@@ -1,6 +1,6 @@
 html,body{    
     height: 100%;
-    background-color: #d4a20d;
+    background-color: black;
 }
 .header {
     height: 15%;
@@ -55,6 +55,7 @@ html,body{
     width:50%;
     margin-left: auto;
     margin-right: auto;
+    color:white;
 }
 #curveChartDiv {
     margin-left: auto;
@@ -96,7 +97,8 @@ html,body{
 	display:inline-block;
 	color:#ffffff;
 	font-family:arial;
-	font-size:200%;
+	font-size: 350%;
+	white-space: normal;
 	font-weight:bold;
 	padding:6px 12px;
 	text-decoration:none;
