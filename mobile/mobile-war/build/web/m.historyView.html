@@ -1,0 +1,54 @@
+ <html>
+  <head>
+    <script type="text/javascript"
+          src="https://www.google.com/jsapi?autoload={
+            'modules':[{
+              'name':'visualization',
+              'version':'1',
+              'packages':['corechart']
+            }]
+          }"></script>
+
+    <script type="text/javascript">
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Day of the Week',  'People'],
+          ['Sunday',     200],
+          ['Monday',     159],
+          ['Tuesday',    205],
+          ['Wednesday',  180],
+          ['Thursday',   176],
+          ['Friday',     210],
+          ['Saturday',   280]
+        ]);
+
+        var options = {
+          title: 'Attendence per Day',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curveChartDiv'));
+
+        chart.draw(data, options);
+      }
+    </script>
+    <link rel="stylesheet" type="text/css" href="mobileStyle.css">
+    </head>
+    <div class="header">
+        <h1><a id="title" href="m.index.html"> Gym Class Hero's </a></h1>
+        <div class="ribbon">
+            <a id="historyLink" href="/mobile-war/m.gymView.html">Cooper</a>
+            <a id="glimmerLink" href="/mobile-war/m.gymView.html">Glimmer</a>
+        </div>
+    </div>
+    <div id ="curveChartDiv"></div>
+    <div class="changeViewDiv">
+        <form class ="buttonChangeViewForm"> 
+                    <Input type="button" id="changeView" Value = "Day/Week View" 
+                        onclick = "window.location.href='/mobile-war/m.historyView.html'">
+        </form>
+    </div>    
+</html>

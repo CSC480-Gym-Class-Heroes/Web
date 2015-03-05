@@ -1,0 +1,105 @@
+html{    
+    width:100%;
+    height: 100;
+    background-color: #d4a20d;
+}
+.header {
+    width:100%;
+    height: 100px;
+    border-style: solid;
+    border-color: #d4a20d;
+    text-align: center;
+    background-color: #436c3f;
+    font-family:arial;
+    font-weight:bold;
+    padding:6px 12px;
+}
+.graphs {
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ribbon {
+    width:100%;
+    height: 20px;
+    text-align: center;
+}
+.buttonContainer {
+    width: 75%;
+    height: 500px;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+.buttonForm {
+    width: 100%;
+    height: 33%;
+}
+.buttonChangeViewForm {
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    height: 100px;
+}
+
+.buttonCooperHistoryForm {
+    width: 50%;
+    height: 33%;
+    float: right;
+}
+.buttonGlimmerHistoryForm {
+    width: 50%;
+    height: 33%;
+    float: left;
+}
+.classDiv,.hoursDiv {
+    font-family:arial;
+    font-weight:bold;
+    padding:6px 12px;
+    font-size: 1.5vw;
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#curveChartDiv {
+    margin-left: auto;
+    margin-right: auto;
+    height:500px;
+    width:75%;
+}
+#title {
+    font-weight: bold;
+    color:#ffffff;
+    font-family:arial;
+    font-weight:bold;
+    padding:6px 12px;
+    text-decoration: none;
+}
+#glimmerLink, #historyLink {
+    color:white;
+    text-decoration-line: none;
+    padding-right: 25px;
+}
+
+#changeView, #cooper, #glimmer, #cooperHistory, #glimmerHistory {
+        height: 100%;
+        width: 100%;
+       -moz-box-shadow:inset 0px 1px 0px 0px #9acc85;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #9acc85;
+	box-shadow:inset 0px 1px 0px 0px #9acc85;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #436c3f), color-stop(1, #68a54b));
+	background:-moz-linear-gradient(top, #436c3f 5%, #68a54b 100%);
+	background:-webkit-linear-gradient(top, #436c3f 5%, #68a54b 100%);
+	background:-o-linear-gradient(top, #436c3f 5%, #68a54b 100%);
+	background:-ms-linear-gradient(top, #436c3f 5%, #68a54b 100%);
+	background:linear-gradient(to bottom, #436c3f 5%, #68a54b 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#436c3f', endColorstr='#68a54b',GradientType=0);
+	background-color:#436c3f;
+	border:1px solid #436c3f;
+	display:inline-block;
+	color:#ffffff;
+	font-family:arial;
+	font-size:17px;
+	font-weight:bold;
+	padding:6px 12px;
+	text-decoration:none;
+}
