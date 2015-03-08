@@ -15,19 +15,22 @@
             
             function drawChart(){
                 
-                var data = google.visulization.DataTable;
+                var data = new google.visualization.DataTable();
                 data.addColumn('number', 'Time');
                 data.addColumn('number', 'Number of People');
+                data.addRows([
+                    [1, 5],
+                ]);
             
             
                 var options = {
                     title: "Cooper history",
                     hAxis: {title: 'Time', minValue: 0, maxValue: 15},
-                    vAxis: {title: 'People', minValue: 0, maxValue: 60}
+                    vAxis: {title: 'People', minValue: 0, maxValue: 60},
                     legend: 'none'
                 };
 
-                var chart = new google.visualization.ScatterChart(document.getElementById('CooperHistory'));
+                var chart = new google.visualization.ScatterChart(document.getElementById('cooperHistory'));
                 chart.draw(data, options);
             }
             
@@ -42,6 +45,6 @@
             <a href="GlimmerHistory.jsp"> Glimmer Glass History </a>
         </div>
         <br>
-        <div id="CooperHistory" style="width: 900px; height: 500px;"> </div>
+        <div id="cooperHistory" style="width: 900px; height: 500px;"> </div>
     </body>
 </html>
