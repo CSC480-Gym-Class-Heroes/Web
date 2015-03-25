@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A utility class for getting persistent data from the database. It is
@@ -51,8 +53,8 @@ public class DatabaseUtility {
     private static final String glimmerglassClassFileName = "Glimmerglass.csv";
     
     //Should be using enumerations for the Gyms, but just discovered them.
-    private static Map<Weekday, List<GymClass>> cooperClasses = new LinkedHashMap<Weekday, List<GymClass>>();
-    private static Map<Weekday, List<GymClass>> glimmerglassClasses = new LinkedHashMap<Weekday, List<GymClass>>();
+    private static Map<DayOfWeek, List<GymClass>> cooperClasses = new LinkedHashMap<DayOfWeek, List<GymClass>>();
+    private static Map<DayOfWeek, List<GymClass>> glimmerglassClasses = new LinkedHashMap<DayOfWeek, List<GymClass>>();
     private static String[] cooperGymHours = new String[7];
     private static String[] glimmerglassGymHours = new String[7];
     //private static int cooperCount = 0; 
@@ -74,9 +76,15 @@ public class DatabaseUtility {
         }else if(!(gymName.equalsIgnoreCase("cooper") || gymName.equalsIgnoreCase("glimmerglass"))) {
             throw new IllegalArgumentException("Gym Name must be either cooper or glimmerglass");
         }
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseUtility.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            return -1;
+        }
         try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)){
             PreparedStatement stmt = null;
-            Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Connecting to a selected database...");
             
             stmt = conn.prepareStatement(sql);
@@ -112,11 +120,15 @@ public class DatabaseUtility {
             throw new IllegalArgumentException("Gym Name must be either cooper or glimmerglass");
         }
         
+        try {         
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseUtility.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            return -1;
+        }
         try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)){
             PreparedStatement stmt = null;
-            Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Connecting to a selected database...");
-            
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, gymName);
             System.out.println(stmt);
@@ -140,9 +152,10 @@ public class DatabaseUtility {
      * to decrease latency time for data retrieval.
      * @param gymName The name of the gym to retrieve GymClasses for
      * @param dayOfWeek The day of the week to retrieve GymClasses for
-     * @return a list of all GymClass objects associated with gymName and dayOfWeek.
+     * @return a list of all GymClass objects associated with gymName and 
+     * dayOfWeek or null if an error occurs.
      */
-    public List<GymClass> getGymClassesFor(String gymName, Weekday dayOfWeek) {
+    public List<GymClass> getGymClassesFor(String gymName, DayOfWeek dayOfWeek) {
         if (gymName == null) {
             throw new IllegalArgumentException("Gym Name can't be null");
         }else if (!(gymName.equalsIgnoreCase("cooper") || gymName.equalsIgnoreCase("glimmerglass"))) {
@@ -154,9 +167,8 @@ public class DatabaseUtility {
         } else if (gymName.equalsIgnoreCase("glimmerglass")) {
             return glimmerglassClasses.get(dayOfWeek);
         }
-
+        
         //How could this happen?
-        assert false;
         return null;
     }
 
@@ -180,16 +192,15 @@ public class DatabaseUtility {
         String tableName = "sensorData";
         String columns = "sensorTimeStamp, count, gymID";
         boolean error = false;
-        try (Connection conn){
-            //STEP 2: Register JDBC driver
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            
-            //STEP 3: Open a connection
-            System.out.println("Connecting to a selected database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            System.out.println("Connected database successfully...");
-
-            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseUtility.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            return false;
+        }
+        try (
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)){
             String sql = "INSERT INTO " + tableName + " ("
                     + columns + ") VALUES(" + "?, ?, ?" + ");";
             
@@ -205,12 +216,11 @@ public class DatabaseUtility {
             //STEP 4: Execute a query
             pstmt.executeUpdate();
             System.out.println("Inserted records into the table...");
-
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            error=true;
+            return false;
         }
-        return error;
     }
 
     /**
@@ -219,24 +229,47 @@ public class DatabaseUtility {
      * additional disk reads which are slow and expensive.
      */
     public static void init() throws FileNotFoundException, IOException {
-        initGymClasses("cooper");
-        initGymClasses("glimmerglass");
+        Map<String, String> classDescriptions = readClassDescriptions();
+        cooperClasses = getGymClasses("cooper", classDescriptions);
+        glimmerglassClasses = getGymClasses("glimmerglass", classDescriptions);
+        for(DayOfWeek className : cooperClasses.keySet()){
+            System.out.println(className.toString() + cooperClasses.get(className));
+        }
+        for(DayOfWeek className : glimmerglassClasses.keySet()){
+            System.out.println(className.toString() + cooperClasses.get(className));
+        }
+        
     }
-
-    private static void initGymClasses(String gymName) throws FileNotFoundException, IOException {
+    
+    private static Map<String, String> readClassDescriptions()throws IOException{
+        System.out.println("readClassDescriptions()");
+        String path = "/WEB-INF/GymData/ClassDescriptions/ClassDescriptions.csv";
+        Map<String, String> classDescriptions = new HashMap<String, String>(); 
+        CSVReader reader = null;
+        reader = new CSVReader(
+                //Requires StartupShutdownListener run it's startup method first.
+                new InputStreamReader(StartupShutdownListener.getContext()
+                        .getResourceAsStream(path)));
+        String[] nextLine;
+        while ((nextLine = reader.readNext()) != null) {
+            classDescriptions.put(nextLine[0], nextLine[1]);
+        }
+        return classDescriptions;
+    }
+    
+    private static Map<DayOfWeek, List<GymClass>> getGymClasses(String gymName, Map<String, String> classDescriptions) throws FileNotFoundException, IOException {
         String path;
-        Map<Weekday, List<GymClass>> gymClassesOnDay;
+        Map<DayOfWeek, List<GymClass>> gymClassesOnDay = new HashMap<>();
         CSVReader reader = null;
         if (gymName == null) {
             throw new IllegalArgumentException("Gym Name can't be null");
         }
-
         if (gymName.trim().equalsIgnoreCase("cooper")) {
             path = csvPath + cooperClassFileName;
-            gymClassesOnDay = cooperClasses;
+            //gymClassesOnDay = cooperClasses;
         } else if (gymName.trim().equalsIgnoreCase("glimmerglass")) {
             path = csvPath + glimmerglassClassFileName;
-            gymClassesOnDay = glimmerglassClasses;
+            //gymClassesOnDay = glimmerglassClasses;
         } else {
             throw new IllegalArgumentException("Gym Name must be either cooper or glimmerglass");
         }
@@ -246,13 +279,16 @@ public class DatabaseUtility {
                 //Requires StartupShutdownListener run it's startup method first.
                 new InputStreamReader(StartupShutdownListener.getContext()
                         .getResourceAsStream(path)));
-        for (Weekday weekday : Weekday.values()) {
+        for (DayOfWeek weekday : DayOfWeek.values()) {
             gymClassesOnDay.put(weekday, new ArrayList<GymClass>());
         }
         String[] nextLine;
         while ((nextLine = reader.readNext()) != null) {
-            Weekday weekday = Weekday.valueOf(nextLine[0].trim().toUpperCase(Locale.ENGLISH));
-            gymClassesOnDay.get(weekday).add(new GymClass(weekday, nextLine[1], nextLine[2], nextLine[3]));
+            String description = classDescriptions.get(nextLine[2]);
+            if(description==null){description = "";}
+            DayOfWeek weekday = DayOfWeek.valueOf(nextLine[0].trim().toUpperCase(Locale.ENGLISH));
+            gymClassesOnDay.get(weekday).add(new GymClass(weekday, nextLine[1], nextLine[2], nextLine[3], description));
         }
+        return gymClassesOnDay;
     }
 }

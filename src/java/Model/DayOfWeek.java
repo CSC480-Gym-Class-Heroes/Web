@@ -11,7 +11,7 @@ import java.util.Locale;
  *
  * @author csaroff
  */
-public enum Weekday {
+public enum DayOfWeek {
     SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
 }
 

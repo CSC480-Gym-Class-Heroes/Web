@@ -10,20 +10,22 @@ package Model;
  * @author csaroff
  */
 public class GymClass {
-    private Weekday dayOfWeek;
+    private DayOfWeek dayOfWeek;
     private String name;
     private String time;
     private String instructor;
-    public GymClass(Weekday dayOfWeek, String name, String time, String instructor){
+    private String description;
+    public GymClass(DayOfWeek dayOfWeek, String name, String time, String instructor, String description){
         this.dayOfWeek=dayOfWeek;
         this.name=name;
         this.time=time;
         this.instructor=instructor;
+        this.description=description;
     }
     public String toString(){
-        return dayOfWeek + "\t" + name + "\t" + time + "\t" + instructor;
+        return dayOfWeek + "\t" + name + "\t" + time + "\t" + instructor + "\t" + description;
     }
-    public Weekday getDayOfWeek(){
+    public DayOfWeek getDayOfWeek(){
         return dayOfWeek;
     }
     public String getName(){
