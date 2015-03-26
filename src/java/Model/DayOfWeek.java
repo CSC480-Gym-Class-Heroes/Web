@@ -8,8 +8,8 @@ package Model;
 import java.util.Locale;
 
 /**
- *
- * @author csaroff
+ * An enumeration representing a day of the week.
+ * @author Chaskin Saroff
  */
 public enum DayOfWeek {
     SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;

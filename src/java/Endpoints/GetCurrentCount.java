@@ -16,21 +16,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
 
+
 /**
- *
+ * Sends a client the current number of customers in the 
+ * given gym.
+ * @baseURL /GetCurrentCount
+ * @requestParameter gym The name of the gym from which we want to retrieve the 
+ * number of customers.
  * @author csaroff
  */
 @WebServlet(name = "GetCurrentCount", urlPatterns = {"/GetCurrentCount", })
 public class GetCurrentCount extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * Sends a client the current number of customers in the given gym.
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

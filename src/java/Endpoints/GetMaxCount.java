@@ -15,21 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Retrieves the maximum number people that have ever been in the given gym.
+ * @baseURL /GetMaxCount
+ * @requestParameter gym The name of the gym from which we want to retrieve the 
+ * number of customers.
  * @author csaroff
  */
 @WebServlet(name = "GetMaxCount", urlPatterns = {"/GetMaxCount"})
 public class GetMaxCount extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");

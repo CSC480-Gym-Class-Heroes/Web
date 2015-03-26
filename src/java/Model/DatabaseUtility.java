@@ -5,10 +5,6 @@
  */
 package Model;
 
-/**
- *
- * @author csaroff
- */
 import Endpoints.StartupShutdownListener;
 import java.util.List;
 import java.util.ArrayList;
@@ -34,10 +30,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * A utility class for getting persistent data from the database. It is
+ * A utility class for retrieving the persistent data of this application. It is
  * important to be careful when editing this class. Static "initialization" may
  * not behave the way that you think. Make sure to include an initialization
  * call from ServletContextListener
+ * @author Chaskin Saroff
  */
 public class DatabaseUtility {
 
@@ -64,12 +61,15 @@ public class DatabaseUtility {
     private DatabaseUtility() {}
     
     /**
-     * Calculate the most people that have ever been in the gym at a given time.
+     * Retrieves the maximum number of people that have ever been in the gym at
+     * a given time.
      * @param gymName The name of the gym to find the maximum count for.
      * @return the maximum number of people that have ever been in the gym at
-     * the same time, or -1 if an error occured.
+     * the same time, or -1 if an error occurred.
      */
     public static int getMaxCount(String gymName){
+        //This Method should really throw an error if an error occurs, instead
+        //of returning -1.
         String sql = "SELECT MAX(count) from sensorData WHERE gymId = ?;";
         if (gymName == null) {
             throw new IllegalArgumentException("Gym Name can't be null");
@@ -107,7 +107,7 @@ public class DatabaseUtility {
     /**
      * Retrieves the most recent number of gymRats in the given gym.
      * @param gymName the name of the gym 
-     * @return the number of people currently in gymName or -1 if an error occured.
+     * @return the number of people currently in gymName or -1 if an error occurred.
      */
     public static int getCount(String gymName){
         String tableName = "sensorData";
@@ -175,13 +175,13 @@ public class DatabaseUtility {
     /**
      * Updates the current count of gymName with count and saves it in the 
      * database.
-     * @param gymName The name of the gym to update.
-     * @param date The timestamp for that the sensor recorded the count.
-     * @param count The number of people currently in the gym.
+     * @param gymName The name of the gym whose count will be updated.
+     * @param timestamp The timestamp for the sensor that recorded the count.
+     * @param count The number of people in the gym at time timestamp.
      * @return true if the database and model both updated successfully and
      * false otherwise.
      */
-    public static boolean updateCount(String gymName, java.util.Date date, int count) {
+    public static boolean updateCount(String gymName, java.util.Date timestamp, int count) {
         if (gymName == null) {
             throw new IllegalArgumentException("Gym Name can't be null");
         } else if (!(gymName.equalsIgnoreCase("cooper") || gymName.equalsIgnoreCase("glimmerglass"))) {
@@ -209,7 +209,7 @@ public class DatabaseUtility {
             
             
             System.out.println("Inserting records into the table...");
-            pstmt.setTimestamp(1, new java.sql.Timestamp(date.getTime()));
+            pstmt.setTimestamp(1, new java.sql.Timestamp(timestamp.getTime()));
             pstmt.setInt(2, count);
             pstmt.setString(3, gymName.toLowerCase());
 
@@ -228,19 +228,23 @@ public class DatabaseUtility {
      * class information into memory, at the start of the program, preventing
      * additional disk reads which are slow and expensive.
      */
-    public static void init() throws FileNotFoundException, IOException {
-        Map<String, String> classDescriptions = readClassDescriptions();
-        cooperClasses = getGymClasses("cooper", classDescriptions);
-        glimmerglassClasses = getGymClasses("glimmerglass", classDescriptions);
+    public static void init() throws IOException {
+        //Map<String, String> classDescriptions = readClassDescriptions();
+        cooperClasses = getGymClasses("cooper");
+        glimmerglassClasses = getGymClasses("glimmerglass");
         for(DayOfWeek className : cooperClasses.keySet()){
             System.out.println(className.toString() + cooperClasses.get(className));
         }
         for(DayOfWeek className : glimmerglassClasses.keySet()){
             System.out.println(className.toString() + cooperClasses.get(className));
-        }
-        
+        }    
     }
     
+    /**
+     * Retrieves the class descriptions from a csv file.
+     * @return a map from class name to class description.
+     * @throws IOException 
+     */
     private static Map<String, String> readClassDescriptions()throws IOException{
         System.out.println("readClassDescriptions()");
         String path = "/WEB-INF/GymData/ClassDescriptions/ClassDescriptions.csv";
@@ -257,8 +261,17 @@ public class DatabaseUtility {
         return classDescriptions;
     }
     
-    private static Map<DayOfWeek, List<GymClass>> getGymClasses(String gymName, Map<String, String> classDescriptions) throws FileNotFoundException, IOException {
+    /**
+     * Retrieves a collection of all of the gym classes for the given gymName.
+     * This implementation reads a csv file from disk, and so will be generally
+     * slow.  Avoid excessive calls to this method by cacheing the result.
+     * @param gymName The name of the gym to retrieve classes for.
+     * @return A map from the day of the week to the classes offered on that day.
+     * @throws IOException 
+     */
+    private static Map<DayOfWeek, List<GymClass>> getGymClasses(String gymName) throws IOException {
         String path;
+        Map<String, String> classDescriptions = readClassDescriptions();
         Map<DayOfWeek, List<GymClass>> gymClassesOnDay = new HashMap<>();
         CSVReader reader = null;
         if (gymName == null) {
@@ -287,7 +300,7 @@ public class DatabaseUtility {
             String description = classDescriptions.get(nextLine[2]);
             if(description==null){description = "";}
             DayOfWeek weekday = DayOfWeek.valueOf(nextLine[0].trim().toUpperCase(Locale.ENGLISH));
-            gymClassesOnDay.get(weekday).add(new GymClass(weekday, nextLine[1], nextLine[2], nextLine[3], description));
+            gymClassesOnDay.get(weekday).add(new GymClass(nextLine[2], description, weekday, nextLine[1], nextLine[3]));
         }
         return gymClassesOnDay;
     }
