@@ -8,6 +8,7 @@ package Endpoints;
 
 
 import Model.DatabaseUtility;
+import Model.Gym;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ import javax.servlet.annotation.WebServlet;
  * number of customers.
  * @author csaroff
  */
-@WebServlet(name = "GetCurrentCount", urlPatterns = {"/GetCurrentCount", })
+@WebServlet(name = "GetCurrentCount", urlPatterns = {"/getcurrentcount", })
 public class GetCurrentCount extends HttpServlet {
 
     /**
@@ -37,7 +38,7 @@ public class GetCurrentCount extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         String gymName = request.getParameter("gym");
         try (PrintWriter out = response.getWriter()) {
-            out.println(DatabaseUtility.getCount(gymName));
+            out.println(DatabaseUtility.getCount(Gym.getGym(gymName)));
         }catch(Exception e){
             e.printStackTrace();
             //response.sendError(response.SC_BAD_REQUEST);

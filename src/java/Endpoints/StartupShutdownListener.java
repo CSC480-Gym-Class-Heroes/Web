@@ -15,7 +15,6 @@ import javax.servlet.annotation.WebListener;
  *
  * @author csaroff
  */
-//@WebServlet(name = "GetCurrentCount", urlPatterns = {"/GetCurrentCount"})
 @WebListener
 public class StartupShutdownListener implements ServletContextListener{
     private static ServletContext servletContext;

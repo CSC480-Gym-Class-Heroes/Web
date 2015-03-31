@@ -6,8 +6,10 @@
 package Endpoints;
 
 import Model.DatabaseUtility;
+import Model.Gym;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * number of customers.
  * @author csaroff
  */
-@WebServlet(name = "GetMaxCount", urlPatterns = {"/GetMaxCount"})
+@WebServlet(name = "GetMaxCount", urlPatterns = {"/getmaxcount"})
 public class GetMaxCount extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +31,7 @@ public class GetMaxCount extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         String gymName = request.getParameter("gym");
         try (PrintWriter out = response.getWriter()) {
-            out.println(DatabaseUtility.getCount(gymName));
+            out.println(DatabaseUtility.getCount(Gym.getGym(gymName)));
         }catch(Exception e){
             e.printStackTrace();
         }

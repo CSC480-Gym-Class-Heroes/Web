@@ -5,8 +5,6 @@
  */
 package Model;
 
-import java.util.Locale;
-
 /**
  * An enumeration representing a day of the week.
  * @author Chaskin Saroff
