@@ -1,6 +1,6 @@
-CREATE database IF NOT EXISTS csc480;
+CREATE database IF NOT EXISTS gym;
 
-USE csc480;
+USE gym;
 
 DROP TABLE if EXISTS sensorData;
    

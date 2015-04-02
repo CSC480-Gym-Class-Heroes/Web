@@ -34,9 +34,9 @@ public class DatabaseUtility {
     //The array index is the day of the week 
     //as an integer with Sunday as 0, etc
     //Each day has a List of classes...
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1/csc480";
-    private static final String USER = "root";
-    private static final String PASS = "password";
+    private static final String DB_URL = "jdbc:mysql://moxie.cs.oswego.edu/gym";
+    private static final String USER = "gym";
+    private static final String PASS = "csc480";
     
     //Like the Math class, make this class unconstructable.
     private DatabaseUtility() {}
