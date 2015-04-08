@@ -10,3 +10,8 @@ CREATE TABLE sensorData (
     gymID varchar(15),
     primary key (sensorTimeStamp, gymID)
 );
+
+CREATE USER 'dev'@'localhost'
+IDENTIFIED BY 'DevPass';
+
+GRANT ALL ON gym.* TO 'dev'@'localhost';

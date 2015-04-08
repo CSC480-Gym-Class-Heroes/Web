@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "GetMaxCount", urlPatterns = {"/getmaxcount"})
 public class GetMaxCount extends HttpServlet {
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
@@ -36,7 +35,6 @@ public class GetMaxCount extends HttpServlet {
             e.printStackTrace();
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -75,5 +73,4 @@ public class GetMaxCount extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

@@ -6,7 +6,6 @@ package Endpoints;
  * and open the template in the editor.
  */
 
-
 import Model.DatabaseUtility;
 import Model.Gym;
 import java.io.IOException;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
-
 
 /**
  * Sends a client the current number of customers in the 
@@ -28,7 +26,6 @@ import javax.servlet.annotation.WebServlet;
  */
 @WebServlet(name = "GetCurrentCount", urlPatterns = {"/getcurrentcount", })
 public class GetCurrentCount extends HttpServlet {
-
     /**
      * Sends a client the current number of customers in the given gym.
      */
@@ -44,7 +41,6 @@ public class GetCurrentCount extends HttpServlet {
             //response.sendError(response.SC_BAD_REQUEST);
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -83,5 +79,4 @@ public class GetCurrentCount extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

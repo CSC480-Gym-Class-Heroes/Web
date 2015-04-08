@@ -10,11 +10,11 @@ package Model;
  * @author Chaskin Saroff
  */
 public class GymClass {
-    private String name;
-    private String description;
-    private DayOfWeek dayOfWeek;
-    private String time;
-    private String instructor;
+    private final String name;
+    private final String description;
+    private final DayOfWeek dayOfWeek;
+    private final String time;
+    private final String instructor;
     
     /**
      * Constructs a new GymClass with the following parameters.
@@ -35,6 +35,7 @@ public class GymClass {
     /**
      * @return a String representation of this GymClass instance.
      */
+    @Override
     public String toString(){
         return dayOfWeek + "\t" + name + "\t" + time + "\t" + instructor + "\t" + description;
     }
@@ -49,7 +50,7 @@ public class GymClass {
     /**
      * @return a description of this gym class as a String.
      */
-    public String description(){
+    public String getDescription(){
         return description;
     }
     

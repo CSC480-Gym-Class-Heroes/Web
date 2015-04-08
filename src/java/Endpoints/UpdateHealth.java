@@ -33,7 +33,6 @@ public class UpdateHealth extends HttpServlet {
             throws ServletException, IOException {
         //response.setContentType("text/html;charset=UTF-8");
         String gymName = request.getParameter("gym");
-        
         if(gymName==null){
             response.sendError(response.SC_BAD_REQUEST);
         }else {

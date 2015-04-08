@@ -44,5 +44,4 @@ public class StartupShutdownListener implements ServletContextListener{
         System.out.println(servletContext);
         return servletContext;
     }
-    
 }

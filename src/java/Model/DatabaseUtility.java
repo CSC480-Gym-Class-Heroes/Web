@@ -9,6 +9,7 @@ import Endpoints.StartupShutdownListener;
 import java.util.List;
 import java.util.ArrayList;
 import com.opencsv.CSVReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -19,6 +20,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,9 +36,9 @@ public class DatabaseUtility {
     //The array index is the day of the week 
     //as an integer with Sunday as 0, etc
     //Each day has a List of classes...
-    private static final String DB_URL = "jdbc:mysql://moxie.cs.oswego.edu/gym";
+    private static String DB_URL;
     private static final String USER = "gym";
-    private static final String PASS = "csc480";
+    private static String PASS;
     
     //Like the Math class, make this class unconstructable.
     private DatabaseUtility() {}
@@ -94,8 +96,7 @@ public class DatabaseUtility {
             throw new RuntimeException(ex);
         }
         try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)){
-            PreparedStatement stmt = null;
-            stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, gym.name());
             System.out.println(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -116,7 +117,7 @@ public class DatabaseUtility {
      * @return a list of all GymClass objects associated with gymName and 
      * dayOfWeek.
      */
-    public List<GymClass> getGymClassesFor(Gym gym, DayOfWeek dayOfWeek) {
+    public static List<GymClass> getGymClassesFor(Gym gym, DayOfWeek dayOfWeek) {
         if (gym == null) {
             throw new IllegalArgumentException("Gym can't be null");
         }        
@@ -129,12 +130,13 @@ public class DatabaseUtility {
      * @param gym The gym whose count will be updated.
      * @param timestamp The timestamp for the sensor that recorded the count.
      * @param count The number of people in the gym at time timestamp.
+     * @throws java.sql.SQLException 
      */
     public static void updateCount(Gym gym, java.util.Date timestamp, int count) throws SQLException {
         if (gym == null) {
             throw new IllegalArgumentException("Gym Name can't be null");
         }
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt;
         String tableName = "sensorData";
         String columns = "sensorTimeStamp, count, gymID";
         boolean error = false;
@@ -148,9 +150,7 @@ public class DatabaseUtility {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)){
             String sql = "INSERT INTO " + tableName + " ("
                     + columns + ") VALUES(" + "?, ?, ?" + ");";
-            
             pstmt = conn.prepareStatement(sql);
-            
             
             pstmt.setLong(1, timestamp.getTime());
             pstmt.setInt(2, count);
@@ -163,24 +163,79 @@ public class DatabaseUtility {
      * Initialize the class information and gym hours, etc. This loads all the
      * class information into memory, at the start of the program, preventing
      * additional disk reads which are slow and expensive.
+     * @throws java.io.FileNotFoundException
      */
-    public static void init() throws IOException {
+    public static void init() throws IOException, FileNotFoundException {
         //Map<String, String> classDescriptions = readClassDescriptions();
         Gym.COOPER.setClassSchedule(getGymClasses(Gym.COOPER));
         Gym.GLIMMERGLASS.setClassSchedule(getGymClasses(Gym.GLIMMERGLASS));
+        DB_URL=getDBUrl();
+        PASS=getDBPassword();
+    }
+    
+    /**
+     * Retrieves the database url based on the DEPLOYMENT environment variable.
+     * Options are DEPLOYMENT="dev" or DEPLOYMENT="prod".  
+     * Try export DEPLOYMENT="prod" from the shell before running the app server
+     * in production.
+     * @return the url associated with the jdbc database connection for this 
+     * deployment environment.
+     */
+    private static String getDBUrl(){
+        final String devPath="jdbc:mysql://localhost/gym";
+        final String prodPath="jdbc:mysql://moxie.cs.oswego.edu/gym";
+        if(System.getenv("DEPLOYMENT")==null){
+            System.out.println("The DEPLOYMENT environment variable is not set."
+                    + "defaulting to DEPLOYMENT=dev");
+            return devPath;
+        }else if(System.getenv("DEPLOYMENT").equals("dev")||
+                 System.getenv("DEPLOYMENT").equals("development")){
+            return devPath;
+        }else if(System.getenv("DEPLOYMENT").equals("prod")||
+                 System.getenv("DEPLOYMENT").equals("production")){
+            return prodPath; 
+        }else{
+            System.out.println("The DEPLOYMENT env variable is currently set to "
+                    + System.getenv("DEPLOYMENT") + ".");
+            System.out.println("Acceptable DEPLOYMENT "
+                    + "values are dev, prod, development or production");
+            System.out.println("Defaulting to DEPLOYMENT=dev");
+            return devPath;
+        }
+    }
+    
+    /**
+     * Retrieves the plaintext db password from the password.db file.  This 
+     * configuration file should only have read permission from the account that
+     * that is running the application server.  password.db should also be in
+     * .gitignore to ensure that the database password stays private.
+     * @return the plaintext database password.
+     * @throws FileNotFoundException
+     */
+    private static String getDBPassword() throws FileNotFoundException{
+        final String path = "/WEB-INF/password.db";
+        Scanner sc = new Scanner(new InputStreamReader(
+                StartupShutdownListener.getContext().getResourceAsStream(path)));
+        if(sc.hasNext()){
+            return sc.next();
+        }else{
+            throw new FileNotFoundException("Missing the password.db file "
+                    + "located at " + path  + "\npassword.db is a text file "
+                    + "containing only the production database password "
+                    + "without any meta information");
+        }
     }
     
     /**
      * Retrieves the class descriptions from a csv file.
      * @return a map from class name to class description.
-     * @throws IOException 
+     * @throws IOException if an error occurred while reading the csv file.
      */
     private static Map<String, String> readClassDescriptions()throws IOException{
         System.out.println("readClassDescriptions()");
-        String path = "/WEB-INF/GymData/ClassDescriptions/ClassDescriptions.csv";
-        Map<String, String> classDescriptions = new HashMap<String, String>(); 
-        CSVReader reader = null;
-        reader = new CSVReader(
+        final String path = "/WEB-INF/GymData/ClassDescriptions/ClassDescriptions.csv";
+        Map<String, String> classDescriptions = new HashMap<>(); 
+        CSVReader reader = new CSVReader(
                 //Requires StartupShutdownListener run it's startup method first.
                 new InputStreamReader(StartupShutdownListener.getContext()
                         .getResourceAsStream(path)));
@@ -204,7 +259,7 @@ public class DatabaseUtility {
         final String csvPath = "/WEB-INF/GymData/GymClasses/";
         Map<String, String> classDescriptions = readClassDescriptions();
         Map<DayOfWeek, List<GymClass>> gymClassesOnDay = new HashMap<>();
-        CSVReader reader = null;
+        CSVReader reader;
         if (gym == null) {
             throw new IllegalArgumentException("Gym can't be null");
         }
@@ -214,7 +269,7 @@ public class DatabaseUtility {
                 new InputStreamReader(StartupShutdownListener.getContext()
                         .getResourceAsStream(path)));
         for (DayOfWeek weekday : DayOfWeek.values()) {
-            gymClassesOnDay.put(weekday, new ArrayList<GymClass>());
+            gymClassesOnDay.put(weekday, new ArrayList<>());
         }
         String[] nextLine;
         while ((nextLine = reader.readNext()) != null) {
