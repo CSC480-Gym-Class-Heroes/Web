@@ -1,10 +1,9 @@
-CLASSPATH = -classpath /home/csaroff/apps/apache-tomcat-8.0.21/lib/servlet-api.jar:lib/*
+CLASSPATH = -classpath ${TOMCAT_HOME}/lib/servlet-api.jar:lib/*
 DEST = build/web/WEB-INF/classes
 SRC = \
-	src/java/Model/*.java \
-	src/java/Endpoints/*.java
-    #src/League/*.java \
-    #src/WoW/*.java 
+	src/java/model/*.java \
+	src/java/endpoints/*.java \
+	src/java/model/containers/*.java
 WARFILE_NAME=Gym.war
 all:
 	make buildDir
