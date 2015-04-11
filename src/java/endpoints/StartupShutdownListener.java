@@ -1,4 +1,4 @@
-package Endpoints;
+package endpoints;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,7 +6,7 @@ package Endpoints;
  * and open the template in the editor.
  */
 import javax.servlet.*;
-import Model.DatabaseUtility;
+import model.DatabaseUtility;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,18 +21,10 @@ public class StartupShutdownListener implements ServletContextListener{
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         servletContext = sce.getServletContext();
-        //System.out.println("servletContext = " + 
-        //servletContext
-        //                .getResourceAsStream("/WEB-INF/GymData/GymClasses/Cooper.csv")
-        //);
-        //System.out.println("ServletContext = " + servletContext);
-        //System.out.println("The servlet is starting up.");
         try{
             DatabaseUtility.init();
-        }catch(FileNotFoundException fnfe){
-            fnfe.printStackTrace();
         }catch(IOException ioe){
-            ioe.printStackTrace();
+            throw new RuntimeException(ioe);
         }
     }
 

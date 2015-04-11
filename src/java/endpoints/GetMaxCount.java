@@ -1,44 +1,38 @@
-package Endpoints;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package endpoints;
 
-import Model.DatabaseUtility;
-import Model.Gym;
+import model.DatabaseUtility;
+import model.Gym;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.annotation.WebServlet;
 
 /**
- * Sends a client the current number of customers in the 
- * given gym.
- * @baseURL /GetCurrentCount
+ * Retrieves the maximum number people that have ever been in the given gym.
+ * @baseURL /getmaxcount
  * @requestParameter gym The name of the gym from which we want to retrieve the 
  * number of customers.
  * @author csaroff
  */
-@WebServlet(name = "GetCurrentCount", urlPatterns = {"/getcurrentcount", })
-public class GetCurrentCount extends HttpServlet {
-    /**
-     * Sends a client the current number of customers in the given gym.
-     */
+@WebServlet(name = "GetMaxCount", urlPatterns = {"/getmaxcount"})
+public class GetMaxCount extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //System.out.println("Get Current Count");
         response.setContentType("text/plain;charset=UTF-8");
         String gymName = request.getParameter("gym");
         try (PrintWriter out = response.getWriter()) {
-            out.println(DatabaseUtility.getCount(Gym.getGym(gymName)));
+            out.println(DatabaseUtility.getMaxCount(Gym.getGym(gymName)));
         }catch(Exception e){
             e.printStackTrace();
-            //response.sendError(response.SC_BAD_REQUEST);
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

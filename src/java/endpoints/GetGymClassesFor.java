@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Endpoints;
+package endpoints;
 
-import Model.DatabaseUtility;
-import Model.DayOfWeek;
-import Model.Gym;
-import Model.GymClass;
+import model.DatabaseUtility;
+import model.DayOfWeek;
+import model.Gym;
+import model.GymClass;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +26,7 @@ import javax.json.stream.JsonGenerator;
  *
  * @author csaroff
  */
-@WebServlet(name = "GetGymClassesFor", urlPatterns = {"/getgymclassesfor"}, 
+@WebServlet(name = "GetGymClasses", urlPatterns = {"/getgymclasses"}, 
     initParams = { 
         @WebInitParam(name = "gym", value = ""),
         @WebInitParam(name = "day", value = "")})
@@ -48,7 +48,7 @@ public class GetGymClassesFor extends HttpServlet {
         DayOfWeek day = DayOfWeek.getDayOfWeek(request.getParameter("day"));
         
         try (JsonWriter writer = Json.createWriter(response.getWriter())) {
-            writer.writeArray(toJsonArray(DatabaseUtility.getGymClassesFor(gym, day)));
+            writer.writeArray(toJsonArray(DatabaseUtility.getGymClasses(gym, day)));
         }catch (Exception e){
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
@@ -70,6 +70,11 @@ public class GetGymClassesFor extends HttpServlet {
         return jsonGymClassesBuilder.build();
     }
     
+    /**
+     * Converts a gymClass object into a JsonObject.
+     * @param gymClass the gymClass object to convert.
+     * @return a JsonObject representing the given GymClass
+     */
     private JsonObject toJsonObject(GymClass gymClass){
         Map<String, Object> properties = new HashMap<>();
         //properties.put("javax.json.stream.JsonGenerator.prettyPrinting", Boolean.valueOf(true));

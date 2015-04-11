@@ -1,7 +1,7 @@
 *.class
 .project
 */private/*
-password.db
+production.config
 build/
 
 # Mobile Tools for Java (J2ME)

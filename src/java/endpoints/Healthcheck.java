@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Endpoints;
+package endpoints;
 
-import Model.DatabaseUtility;
-import Model.Gym;
+import model.Gym;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,22 +15,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Retrieves the maximum number people that have ever been in the given gym.
- * @baseURL /GetMaxCount
- * @requestParameter gym The name of the gym from which we want to retrieve the 
- * number of customers.
+ *
  * @author csaroff
  */
-@WebServlet(name = "GetMaxCount", urlPatterns = {"/getmaxcount"})
-public class GetMaxCount extends HttpServlet {
+@WebServlet(name = "Healthcheck", urlPatterns = {"/healthcheck"})
+public class Healthcheck extends HttpServlet {
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/plain;charset=UTF-8");
-        String gymName = request.getParameter("gym");
-        try (PrintWriter out = response.getWriter()) {
-            out.println(DatabaseUtility.getCount(Gym.getGym(gymName)));
-        }catch(Exception e){
-            e.printStackTrace();
+        response.setContentType("text/html;charset=UTF-8");
+        String gymName = request.getParameter("gym");        
+        if(gymName==null){
+            response.sendError(response.SC_BAD_REQUEST);
+        }else {
+            long timeDifference = System.currentTimeMillis() 
+                    - Gym.getGym(gymName).getHealthTimestamp();
+            try (PrintWriter out = response.getWriter()) {
+                out.println("{"
+                        + "'healthStatus':'" + (timeDifference>180000?"bad":"good") + "',"
+                        + "'lastResponseTime':'"+ timeDifference + "'"
+                        + "}");
+            }
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
