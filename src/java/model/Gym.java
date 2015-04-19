@@ -25,6 +25,11 @@ public enum Gym {
     private String[] hours = new String[7];
     private Map<DayOfWeek, List<GymClass>> classSchedule = new EnumMap<>(DayOfWeek.class);
     
+    /**
+     * Returns the Gym associated with the given gymName, ignoring case.
+     * @param gymName the name of the gym.
+     * @return the Gym associated with the given gymName, ignoring case.
+     */
     public static Gym getGym(String gymName){
         return Gym.valueOf(gymName.toUpperCase(Locale.ENGLISH));
     }
@@ -60,9 +65,16 @@ public enum Gym {
         return false;
     }
     
+    /**
+     * @return gets the current count of the number of people in this gym.
+     */
     public int getCurrentCount(){
         return this.currentCount;
     }
+    
+    /**
+     * Resets the current count to zero.
+     */
     public void resetCurrentCount(){
         currentCount=0;
     }

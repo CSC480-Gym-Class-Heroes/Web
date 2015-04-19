@@ -302,6 +302,11 @@ public class DatabaseUtility {
         timer.scheduleAtFixedRate(new DailyTimerTask(), calendar.getTime(), 24l * 60l * 60l * 1000l);
     }
     
+    /**
+     * Retrieves the plaintext db configuration from the given path.
+     * @param path the path to the database configuration file.
+     * @return the database configuration properties.
+     */
     private static Properties readDBConfigFile(String path){
         Properties properties = new Properties();
         try{

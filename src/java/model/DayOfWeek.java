@@ -22,13 +22,25 @@ public enum DayOfWeek {
     FRIDAY(Calendar.FRIDAY), 
     SATURDAY(Calendar.SATURDAY),
     SUNDAY(Calendar.SUNDAY);
-    
+
+    //Each day get's an integer value to comply with java.util.Calendar's 
+    //DayOfWeek system.
     private final int value;
 
+    /**
+     * Constructs a new day of week with the given java.util.Calendar day of the
+     * week value system.
+     * @param value the java.util.Calendar's day of the week value.
+     */
     private DayOfWeek(int value){
         this.value=value;
     }
     
+    /**
+     * Returns the DayOfWeek object associated with today's date.  i.e. If today
+     * is tuesday, this method returns DayOfWeek.TUESDAY.
+     * @return the DayOfWeek object assocated with today's date.
+     */
     public static DayOfWeek today(){
         Calendar c = Calendar.getInstance();
         c.setTime(new java.util.Date());
@@ -37,14 +49,43 @@ public enum DayOfWeek {
                         Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US));
     }
     
+    /**
+     * Returns the DayOfWeek with the given name, ignoring case.
+     * @param dayName the name of the day.
+     * @return the DayOfWeek with the given name, ignoring case.
+     */
     public static DayOfWeek getDayOfWeek(String dayName){
         return DayOfWeek.valueOf(dayName.toUpperCase(Locale.ENGLISH));
     }
     
+    /**
+     * Returns the timestamp of the beginning of the day for the last time the
+     * given dayOfWeek occurred.  If day==today(), this method returns the
+     * timestamp of the beginning of the day for 7 days ago.  For example,
+     * If today is Tuesday, January 13th, 2015 and the given day is MONDAY, this 
+     * method returns the earliest timestamp on Monday, January 12th 2015.
+     * If today is Tuesday, January 13th, 2015 and the given day is TUESDAY,
+     * this method returns the earliest timestamp on Tuesday, January 6th, 2015.
+     * @param day 
+     * @return the timestamp of the beginning of the day of the most recent 
+     * occurrence of dayOfWeek.
+     */
     public static Date getStartOfDayForLast(DayOfWeek day){
         return getStartOfDay(getDateForLast(day));
     } 
     
+    /**
+     Returns the timestamp of the end of the day for the last time the
+     * given dayOfWeek occurred.  If day==today(), this method returns the
+     * timestamp of the end of the day for 7 days ago.  For example,
+     * If today is Tuesday, January 13th, 2015 and the given day is MONDAY, this 
+     * method returns the earliest timestamp on Monday, January 12th 2015.
+     * If today is Tuesday, January 13th, 2015 and the given day is TUESDAY,
+     * this method returns the earliest timestamp on Tuesday, January 6th, 2015.
+     * @param day 
+     * @return the timestamp of the end of the day of the most recent 
+     * occurrence of dayOfWeek.
+     */
     public static Date getEndOfDayForLast(DayOfWeek day){
         return getEndOfDay(getDateForLast(day));
     }
@@ -56,18 +97,25 @@ public enum DayOfWeek {
         return calendar;
     }
     private static Date getStartOfDay(Calendar calendar) {
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DATE);
-        calendar.set(year, month, day, 23, 59, 59);
+        System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
+        calendar.set(Calendar.HOUR_OF_DAY, -1);
+        System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
+        calendar.set(Calendar.MINUTE, 0);
+        System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
+        calendar.set(Calendar.SECOND, 0);
+        System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
+        calendar.set(Calendar.MILLISECOND, 0);
+        System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
         return calendar.getTime();
     }
 
     private static Date getEndOfDay(Calendar calendar) {
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DATE);
-        calendar.set(year, month, day, 23, 59, 59);
+        System.out.println("getEndOfDay input = " + new Date(calendar.getTimeInMillis()));
+        calendar.set(Calendar.HOUR_OF_DAY, 22);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        System.out.println("getEndOfDay input = " + new Date(calendar.getTimeInMillis()));
         return calendar.getTime();
     }
 }
