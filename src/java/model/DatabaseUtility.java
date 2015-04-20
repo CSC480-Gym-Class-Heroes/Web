@@ -210,9 +210,9 @@ public class DatabaseUtility {
      * @param day the day
      * @return the average number of people who entered the given Gym for the
      * given DayOfWeek.
-     * @throws SQLException if a database error occurred
+     * @throws RuntimeException if an sql error occured
      */
-    public int getAverageInCount(Gym gym, DayOfWeek day)throws SQLException{
+    public static int getAverageInCount(Gym gym, DayOfWeek day){
         validateArgument(gym); validateArgument(day);
         PreparedStatement pstmt;
         String tableName = "averageInTable";
@@ -227,8 +227,10 @@ public class DatabaseUtility {
             if(rs.next()){
                 return rs.getInt(1);
             }else{
-                throw new SQLException("The database is empty");
+                return 0;
             }
+        }catch(SQLException sqle){
+            throw new RuntimeException(sqle);
         }
     }
     

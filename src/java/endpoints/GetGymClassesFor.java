@@ -44,9 +44,15 @@ public class GetGymClassesFor extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/json;charset=UTF-8");
-        Gym gym = Gym.getGym(request.getParameter("gym"));
-        DayOfWeek day = DayOfWeek.getDayOfWeek(request.getParameter("day"));
-        
+        String strGym = request.getParameter("gym");
+        String strDay = request.getParameter("day");
+        DayOfWeek day;
+        Gym gym = Gym.getGym(strGym);
+        if(strDay!=null&&!strDay.equals("")){
+            day = DayOfWeek.getDayOfWeek(strDay);
+        }else{
+            day = DayOfWeek.today();
+        }
         try (JsonWriter writer = Json.createWriter(response.getWriter())) {
             writer.writeArray(toJsonArray(DatabaseUtility.getGymClasses(gym, day)));
         }catch (Exception e){

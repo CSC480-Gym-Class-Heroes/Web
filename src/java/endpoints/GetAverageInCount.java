@@ -1,47 +1,60 @@
-package endpoints;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package endpoints;
 
-import model.DatabaseUtility;
-import model.Gym;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.annotation.WebServlet;
+import model.DatabaseUtility;
+import model.DayOfWeek;
+import model.Gym;
 
 /**
- * Sends a client the current number of customers in the 
- * given gym.
- * @baseURL /getcurrentcount
- * @requestParameter gym The name of the gym from which we want to retrieve the 
- * number of customers.
- * @author Chaskin Saroff
+ *
+ * @author csaroff
  */
-@WebServlet(name = "GetCurrentCount", urlPatterns = {"/getcurrentcount", })
-public class GetCurrentCount extends HttpServlet {
-    
+@WebServlet(name = "GetAverageInCount", urlPatterns = {"/getaverageincount"}, 
+    initParams = { 
+        @WebInitParam(name = "gym", value = ""),
+        @WebInitParam(name = "day", value = "")})
+public class GetAverageInCount extends HttpServlet {
+
     /**
-     * Sends a client the current number of customers in the given gym.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response){
-        //System.out.println("Get Current Count");
-        //response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setContentType("text/json;charset=UTF-8");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
         String gymName = request.getParameter("gym");
-        System.out.println("Get count was called \"" + gymName);
+        String dayName = request.getParameter("day");
+        DayOfWeek day;
+        if(dayName!=null&&!dayName.equals("")){
+            day = DayOfWeek.getDayOfWeek(dayName);
+        }else{
+            day = DayOfWeek.today();
+        }
         try (PrintWriter out = response.getWriter()) {
-            out.println(DatabaseUtility.getCurrentCount(Gym.getGym(gymName)));
+            System.out.println(DatabaseUtility.getAverageInCount(Gym.getGym(gymName), day));
+            out.println(DatabaseUtility.getAverageInCount(Gym.getGym(gymName), day));
         }catch(IOException ioe){
             throw new RuntimeException(ioe);
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -80,4 +93,5 @@ public class GetCurrentCount extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

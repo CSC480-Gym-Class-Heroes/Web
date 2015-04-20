@@ -8,7 +8,14 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/custom.css" rel="stylesheet">
 	<link href="css/font-awesome.css" rel="stylesheet" >
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/source.js"></script>
+<script type="text/javascript"> 
+$(document).ready(function(){
+    generateTable("glimmerglass");
+    getCurrentCount("glimmerglass");
+});
+</script>
   </head>
   <body>
   	<nav class="navbar navbar-default">
@@ -52,7 +59,7 @@
 					<i class="fa fa-user"></i>
 				</span>
 				<div class="text-box" >
-					<p class="main-text">30</p>
+					<p id="currentCount" class="main-text">30</p>
 					<p class="text-muted">Current</p>
 				</div>
 			</div>
@@ -98,32 +105,10 @@
 					 <th>Insructor</th>
 					 </tr>
 			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td>Zumba</td>
-					<td>1-2</td>
-					<td>Mark</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Cycling</td>
-					<td>2-3</td>
-					<td>Shannon</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Yoga</td>
-					<td>3-4</td>
-					<td>Zac</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>How to Train Your Dragon</td>
-					<td>Forever</td>
-					<td>Tags</td>
-				</tr>
-			</tbody>
+			<tbody id="classTable"> <!-- 
+                           JQuery inserts table info with magic
+                           -->
+                           </tbody>
 		 </table>
 	</div>  
 	</div>  
