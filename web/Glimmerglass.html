@@ -14,6 +14,8 @@
 $(document).ready(function(){
     generateTable("glimmerglass");
     getCurrentCount("glimmerglass");
+    getInCount("cooper");
+    getAverageInCount("cooper");
 });
 </script>
   </head>
@@ -59,7 +61,7 @@ $(document).ready(function(){
 					<i class="fa fa-user"></i>
 				</span>
 				<div class="text-box" >
-					<p id="currentCount" class="main-text">30</p>
+					<p id="currentCount" class="main-text"></p>
 					<p class="text-muted">Current</p>
 				</div>
 			</div>
@@ -70,7 +72,7 @@ $(document).ready(function(){
 					<i class="fa fa-users"></i>
 				</span>
 				<div class="text-box" >
-					<p class="main-text">56</p>
+					<p id="inCount" class="main-text"></p>
 					<p class="text-muted">Total</p>
 				</div>
 			</div>
@@ -81,7 +83,7 @@ $(document).ready(function(){
 					<i class="fa fa-star-o"></i>
 				</span>
 				<div class="text-box" >
-					<p class="main-text">80</p>
+					<p id="averageInCount" class="main-text"></p>
 					<p class="text-muted">Average</p>
 				</div>
 			</div>

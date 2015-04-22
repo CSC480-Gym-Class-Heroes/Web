@@ -92,30 +92,35 @@ public enum DayOfWeek {
     
     private static Calendar getDateForLast(DayOfWeek day){
         Calendar calendar = Calendar.getInstance(
-                TimeZone.getTimeZone("EST"), Locale.US);
+                TimeZone.getTimeZone("America/New_York"), Locale.US
+        );
         calendar.add(Calendar.DATE, today().equals(day)?-7:(-1)*Math.abs(day.value-today().value));
         return calendar;
     }
     private static Date getStartOfDay(Calendar calendar) {
-        System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
-        calendar.set(Calendar.HOUR_OF_DAY, -1);
-        System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
+        //System.out.println("Start " + calendar.getTime());
+        //System.out.println("Start " + calendar.getTimeInMillis());
+        //System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        //System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
         calendar.set(Calendar.MINUTE, 0);
-        System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
+        //System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
         calendar.set(Calendar.SECOND, 0);
-        System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
+        //System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
         calendar.set(Calendar.MILLISECOND, 0);
-        System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
+        //System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
+        //System.out.println("End " + calendar.getTime());
+        //System.out.println("End " + calendar.getTimeInMillis());
         return calendar.getTime();
     }
 
     private static Date getEndOfDay(Calendar calendar) {
-        System.out.println("getEndOfDay input = " + new Date(calendar.getTimeInMillis()));
-        calendar.set(Calendar.HOUR_OF_DAY, 22);
+        //System.out.println("getEndOfDay input = " + new Date(calendar.getTimeInMillis()));
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
-        System.out.println("getEndOfDay input = " + new Date(calendar.getTimeInMillis()));
+        //System.out.println("getEndOfDay input = " + new Date(calendar.getTimeInMillis()));
         return calendar.getTime();
     }
 }

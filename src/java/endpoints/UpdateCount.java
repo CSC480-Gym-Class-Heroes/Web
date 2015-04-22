@@ -8,6 +8,7 @@ package endpoints;
 import model.Gym;
 import model.DatabaseUtility;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,8 +41,7 @@ public class UpdateCount extends HttpServlet {
         String strIn = request.getParameter("in");
         
         if(gymName==null||strDate==null||strCount==null||strIn==null){
-            response.sendError(response.SC_BAD_REQUEST);
-            return;
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }else{
             try{
                 java.util.Date date = new java.util.Date(Long.parseLong(strDate));
@@ -49,11 +49,9 @@ public class UpdateCount extends HttpServlet {
                 boolean in = Boolean.parseBoolean(strIn);
                 System.out.println(in);
                 DatabaseUtility.updateCurrentCount(Gym.getGym(gymName), date, count, in);     
-                response.setStatus(response.SC_OK);
-                return;
-            }catch(Exception e){
-                response.sendError(response.SC_BAD_REQUEST);
-                e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_OK);
+            }catch(NumberFormatException | SQLException e){
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
         }
     }

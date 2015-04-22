@@ -13,7 +13,7 @@ try to walk you through.  This guide is written assuming that you're using
 linux as your development environment.  Some of the command line usage will 
 differ from windows.
 
-###TL;DR;###
+###TL;DR###
 ####For Development####
 
     git clone https://github.com/CSC480-Gym-Class-Heroes/Web.git

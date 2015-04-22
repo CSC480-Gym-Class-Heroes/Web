@@ -78,8 +78,8 @@ public class DatabaseUtility {
         String sql = "SELECT count, sensorTimeStamp "
                 + "FROM sensorData "
                 + "WHERE gymName = ? AND sensorTimeStamp "
-                + "BETWEEN " + DayOfWeek.getStartOfDayForLast(day) + " "
-                + "AND " + DayOfWeek.getEndOfDayForLast(day) + ";";
+                + "BETWEEN " + DayOfWeek.getStartOfDayForLast(day).getTime() + " "
+                + "AND " + DayOfWeek.getEndOfDayForLast(day).getTime() + ";";
         List<CountDatapoint> datapointList = new ArrayList<>();
         try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)){
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -218,11 +218,11 @@ public class DatabaseUtility {
         String tableName = "averageInTable";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)){
             String sql = "SELECT " + "averageIns" + " FROM " + tableName + 
-                    "WHERE " + "gymName = ? AND dayOfWeek = ? ";
+                    " WHERE " + "gymName = ? AND dayOfWeek = ? ";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, gym.name());
             pstmt.setString(2, day.name());
-            
+            System.out.println(pstmt);
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()){
                 return rs.getInt(1);

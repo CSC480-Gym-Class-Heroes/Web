@@ -5,23 +5,27 @@
  */
 function getCurrentCount(gymName){
     //alert("HIOAJNFAJN");
+    var millisecondsToWait = 500;
+    setInterval(function() {
+    // Whatever you want to do after the wait
     $.ajax({
-       // url:"http://localhost:9999/Gym_Rats/getcurrentcount?gym=cooper",
-       url:"getcurrentcount",
-       data:{
-         gym:gymName  
-       },
-        type:"GET",
-       // dataType: 'text',
-        //contentType: "application/json",
-        success:function(response){
-            //alert(response);
-            $("#currentCount").text(response);
-        },
-        error:function(xhr,sta,err){
-            alert("WTF man");
-        }
-    });
+        // url:"http://localhost:9999/Gym_Rats/getcurrentcount?gym=cooper",
+        url:"getcurrentcount",
+        data:{
+            gym:gymName  
+           },
+            type:"GET",
+            // dataType: 'text',
+            //contentType: "application/json",
+            success:function(response){
+                //alert(response);
+                $("#currentCount").text(response);
+            },
+            error:function(xhr,sta,err){
+                alert("WTF man");
+            }
+        });
+        }, millisecondsToWait);
 }
 
 function getInCount(gymName){
@@ -112,3 +116,48 @@ function generateTable(gymName){
         }
     });
 }
+
+    function getHistoryData(gymName){
+        var retVal;
+        $.ajax({
+       url:"getcountdata",
+       data:{
+         gym:gymName  
+       },
+        type:"GET",
+       // dataType: 'text',
+        //contentType: "application/json",
+        success:function(response){
+        retVal = response;
+        },
+        async:false,
+        error:function(xhr,sta,err){
+                alert("WTF man");
+        }
+    });
+    return retVal;
+}   	
+        google.load('visualization', '1.0', {'packages':['corechart']});
+        function drawChart(gymName) {
+            var historyData = getHistoryData(gymName);
+            var tableData = ([['People',  'Time']].concat(historyData));
+            var data = google.visualization.arrayToDataTable(tableData);
+            var options = {
+                title: 'Attendence per Day',
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            };
+				
+            // Instantiate and draw our chart, passing in some options.
+            function resize () {
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
+            window.onload = resize();
+            window.onresize = resize;
+            //var options = {'title':title,'width':w,'height':h,'chartArea':{left:0,top:10,width:"100%"}};
+            //var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            //chart.draw(data,options);
+	}
+
+		

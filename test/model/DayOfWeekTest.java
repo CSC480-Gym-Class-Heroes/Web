@@ -148,15 +148,21 @@ public class DayOfWeekTest {
         System.out.println("getStartOfDayForLast");
         
         Calendar cal = Calendar.getInstance();
+        Calendar calTest = Calendar.getInstance();
+        calTest.setTimeInMillis(cal.getTimeInMillis()-604800000/**/);
+        //System.out.println("Test Start " + calTest.getTime());
+        //System.out.println("Test Start " + calTest.getTimeInMillis());
         // set to mid-night
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        Date expResult = new Date(cal.getTimeInMillis()-604800000);
+        calTest.set(Calendar.HOUR_OF_DAY, 0);
+        calTest.set(Calendar.MINUTE, 0);
+        calTest.set(Calendar.SECOND, 0);
+        calTest.set(Calendar.MILLISECOND, 0);
+        Date expResult = new Date(calTest.getTimeInMillis()/*-604800000/**/);
+        //System.out.println("Test End " + expResult);
+        //System.out.println("Test End " + calTest.getTimeInMillis());
         Date result = DayOfWeek.getStartOfDayForLast(DayOfWeek.today());
-        System.out.println("Expected: " + expResult);
-        System.out.println("Result: " + result);
+        //System.out.println("Expected: " + expResult);
+        //System.out.println("Result: " + result);
         assertEquals(expResult, result);
     }
 
@@ -174,8 +180,8 @@ public class DayOfWeekTest {
         cal.set(Calendar.MILLISECOND, 0);
         Date expResult = new Date(cal.getTimeInMillis()-518400001);
         Date result = DayOfWeek.getEndOfDayForLast(DayOfWeek.today());
-        System.out.println("Expected: " + expResult);
-        System.out.println("Result: " + result);
+        //System.out.println("Expected: " + expResult);
+        //System.out.println("Result: " + result);
         assertEquals(expResult, result);        
     }
     

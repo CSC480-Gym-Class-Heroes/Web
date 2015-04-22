@@ -51,11 +51,16 @@ public class GetCountData extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/json;charset=UTF-8");
         Gym gym = Gym.getGym(request.getParameter("gym"));
-        DayOfWeek day = DayOfWeek.getDayOfWeek(request.getParameter("day"));
+        DayOfWeek day = 
+                request.getParameter("day")==null?
+                DayOfWeek.today():
+                DayOfWeek.getDayOfWeek(request.getParameter("day"));
+        System.out.println("day = " + day);
         try (JsonWriter writer = Json.createWriter(response.getWriter())) {
             writer.writeArray(
                 toJsonArray(DatabaseUtility.getCountData(gym, day)));
         }catch (Exception e){
+            System.out.println(e);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -72,7 +77,7 @@ public class GetCountData extends HttpServlet {
         JsonBuilderFactory factory = Json.createBuilderFactory(properties);
         JsonArrayBuilder jsonDatapointsBuilder = factory.createArrayBuilder();
         for(CountDatapoint countDatapoint : countDatapoints){
-            jsonDatapointsBuilder.add(toJsonObject(countDatapoint));
+            jsonDatapointsBuilder.add(toJsonArray(countDatapoint));
         }
         return jsonDatapointsBuilder.build();
     }
@@ -82,13 +87,13 @@ public class GetCountData extends HttpServlet {
      * @param gymClass the gymClass object to convert.
      * @return a JsonObject representing the given GymClass
      */
-    private JsonObject toJsonObject(CountDatapoint countDatapoint){
+    private JsonArray toJsonArray(CountDatapoint countDatapoint){
         Map<String, Object> properties = new HashMap<>();
         properties.put(JsonGenerator.PRETTY_PRINTING, true);
         JsonBuilderFactory factory = Json.createBuilderFactory(properties);
-        JsonObject jsonDatapoint = factory.createObjectBuilder()
-            .add("count", countDatapoint.getCount())
-            .add("timestamp", countDatapoint.getTimestamp())
+        JsonArray jsonDatapoint = factory.createArrayBuilder()
+            .add(countDatapoint.getTimestamp())
+            .add(countDatapoint.getCount())
         .build();
         return jsonDatapoint;
     }
