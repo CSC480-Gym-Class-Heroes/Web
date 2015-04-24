@@ -398,7 +398,7 @@ public class DatabaseUtility {
                 new InputStreamReader(StartupShutdownListener.getContext()
                         .getResourceAsStream(path)));
         for (DayOfWeek weekday : DayOfWeek.values()) {
-            gymClassesOnDay.put(weekday, new ArrayList<>());
+            gymClassesOnDay.put(weekday, new ArrayList<GymClass>());
         }
         String[] nextLine;
         while ((nextLine = reader.readNext()) != null) {
