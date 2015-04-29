@@ -15,7 +15,7 @@ consistent with the gym names.~~
 
 Homepage
 --------
-~`- The homepage needs real information on the page.
+~~`- The homepage needs real information on the page.
 The current page was good for an initial mock up, but since we are moving into
 user testing, we need a page that a real user would look at.~~
 
