@@ -28,7 +28,7 @@ Real Time Display Pages
 may not be clear to everyone what classes that table is describing.  Consider
 including a link to the school's gym class information?~~
 
-History
+History - Kelly - Wednesday 5/30/2015
 -------
 - The history page currently shows an error when there is no data for the
 associated day.  We should update this to render an empty graph or something
@@ -65,7 +65,7 @@ for middleware components.
 
 - Create a fake DB to mock 2-3 weeks of gym data.?
 - Perform more rigorous test cases for existing middleware components.?
-- Create cronjob to restart application on server reboot.?
+- James - Wednesday 5/13/2015 - Create cronjob to restart application on server reboot.?
 
 Untested Components
 -------------------
