@@ -51,7 +51,7 @@ public class UpdateCountEndpointTest {
     }
     
     public void loadLastWeek(String gymName){
-        RestAssured.baseURI = "http://localhost:9999/Gym_Rats";
+        RestAssured.baseURI = "http://localhost:8084/Gym_Rats";
         Date beginningOfDay = DayOfWeek.getStartOfDayForLast(DayOfWeek.today());
         int numberOfPeopleInGym = 0;
         for(int i=0; i<100; i++){
@@ -60,6 +60,8 @@ public class UpdateCountEndpointTest {
             if(in) {numberOfPeopleInGym++;}
             else if(numberOfPeopleInGym==0){}
             else {numberOfPeopleInGym--;}
+            
+            
             given()
                 //.log().all()
                 .param("gym", gymName)

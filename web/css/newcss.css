@@ -1,0 +1,153 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 28, 2015, 8:24:56 PM
+    Author     : Mark
+*/
+
+#testContain{
+  width: 120px;
+  height: 120px;
+  overflow: ;
+  position: relative;
+}
+
+/*
+html{
+  padding: 200px;
+  background: rgb(67, 141, 161) !important;
+}
+*/
+
+/*
+body{
+  background: rgb(67, 141, 161) !important;
+}
+*/
+
+.progress{
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  transform: rotate(-90deg);
+  border: 2px solid white;
+  z-index: 1;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.progress .progress-bar{
+  z-index: 1;
+  position: relative;
+
+}
+/*
+@-webkit-keyframes progress {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+@-moz-keyframes progress {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+@-o-keyframes progress {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+@keyframes progress {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+*/
+
+.editRound{
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  overflow: hidden;
+  text-align: center;
+  padding-top: 20px;
+  z-index: 100;
+  position: absolute;
+  border: 2px solid white;
+  top: 10px;
+  left: 10px;
+}
+
+.dashTxt{
+  color: black;
+}
+
+.editRound > a > img{
+  max-width: 70%;
+  max-height: 70%;
+  z-index: 100;
+  position: absolute;
+  top: 10px;
+  left: 22px;
+}
+.progress{
+  background: transparent;
+}
+
+.mainContain{
+  position: absolute;
+  top: 20px;
+  left: 50px;
+}
+
+
+
+.mProgressContain{
+  width: 300px;
+  height: 300px;
+  position: relative;
+  z-index: 0;
+  border-radius: 100%;
+  overflow: hidden;
+  margin: 0;
+  text-align: center;
+  border: 2px solid white;
+}
+
+.mProgress0{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; 
+  left: 0;
+  background: transparent;
+}
+.mProgress1 {
+  width: 100%;
+  position: absolute;
+  bottom: 0; 
+  left: 0;
+  background: rgba(184, 219, 175, 0.9);
+}
+.roundContainX{
+  width: 300px;
+  height: 300px;
+  background: transparent;
+  position: absolute;
+  z-index: 4;
+  border-radius: 100%;
+  overflow: hidden;
+  margin: 0;
+  text-align: center;
+  border: 2px solid white; 
+  top: 0px;
+  left: 0px;
+}
+.editRoundX > a > img{
+  margin: 30px auto;
+  max-width: 70%;
+  max-height: 70%;
+}
+
+#valParam{
+  margin-left: 40%;
+}

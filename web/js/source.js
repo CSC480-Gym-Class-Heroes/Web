@@ -18,11 +18,11 @@ function getCurrentCount(gymName){
             // dataType: 'text',
             //contentType: "application/json",
             success:function(response){
-                //alert(response);
+                //alert(response);               
                 $("#currentCount").text(response);
             },
             error:function(xhr,sta,err){
-                alert("WTF man");
+                alert("Get Current Count");
             }
         });
         }, millisecondsToWait);
@@ -42,7 +42,7 @@ function getInCount(gymName){
             $("#inCount").text(response);
         },
         error:function(xhr,sta,err){
-            alert("WTF man");
+            alert("Get In Count");
         }
     });
 }
@@ -50,7 +50,8 @@ function getInCount(gymName){
 function getAverageInCount(gymName){
     //alert("HIOAJNFAJN");
     $.ajax({
-        url:"getaverageincount",
+        url:"http://pi.cs.oswego.edu:8080/Gym/getaverageincount?gym=glimmerglass",
+        //url:"getaverageincount",
         data:{
           gym:gymName  
         },
@@ -61,7 +62,7 @@ function getAverageInCount(gymName){
             $("#averageInCount").text(response);
         },
         error:function(xhr,sta,err){
-            alert("WTF man");
+            alert("Get Average Count error");
         }
     });
 }
@@ -90,9 +91,9 @@ function generateTable(gymName){
            $.each(response,function(i, obj){
               // alert("Name:" + obj.name + " Desc:" + obj.description);
               var tr =document.createElement("tr");
-              var td1 = document.createElement("td");
+              /*var td1 = document.createElement("td");
               td1.appendChild(document.createTextNode(i));
-              
+              */
               var td2 = document.createElement("td");
               td2.appendChild(document.createTextNode(obj.name));
               
@@ -102,7 +103,7 @@ function generateTable(gymName){
               var td4 = document.createElement("td");
               td4.appendChild(document.createTextNode(obj.instructor));
               
-              tr.appendChild(td1);
+              /*tr.appendChild(td1);*/
               tr.appendChild(td2);
               tr.appendChild(td3);
               tr.appendChild(td4);
@@ -112,7 +113,7 @@ function generateTable(gymName){
            });
         },
         error:function(xhr,sta,err){
-            alert("WTF man");
+            alert("Generate Table");
         }
     });
 }
@@ -132,7 +133,7 @@ function generateTable(gymName){
         },
         async:false,
         error:function(xhr,sta,err){
-                alert("WTF man");
+                alert("History Date");
         }
     });
     return retVal;
