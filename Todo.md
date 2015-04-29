@@ -21,8 +21,8 @@ user testing, we need a page that a real user would look at.~~
 
 Real Time Display Pages
 -----------------------
-- The tables displaying classes have a number associated with each class which
- is indexed from zero.  Do we even need a number associated with each class?
+~~- The tables displaying classes have a number associated with each class which
+ is indexed from zero.  Do we even need a number associated with each class?~~
 
 ~~- The table displaying the classes is not labled with the current day, so it
 may not be clear to everyone what classes that table is describing.  Consider
