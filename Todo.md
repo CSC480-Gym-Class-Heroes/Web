@@ -48,10 +48,10 @@ Like I said, let's try to keep it consistent but easy to use.  Any ideas here?~~
 
 ~~- Clicking "Contact" does nothing.~~
 
-~~- Clicking the history dropdown, you see three entries:
-  - Cooper History
-  - Glimmerglass History
-  - One more seperated link~~
+~~- Clicking the history dropdown, you see three entries:~~
+  ~~- Cooper History~~
+  ~~- Glimmerglass History~~
+  ~~- One more seperated link~~
 
 ~~What is "One more seperated link" for?~~
 
