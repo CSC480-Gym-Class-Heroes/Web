@@ -2,7 +2,7 @@ Web Team Todo List
 ==================
 All components are due from their owners by end of day on their assigned due
 date.
-- Chaskin - Monday 5/4/2015 - Update README.md with updates on "Setting Up a
+- Chaskin - Sunday 5/3/2015 - Update README.md with updates on "Setting Up a
 Development Environment for future developers."
 
 Frontend Todo List
@@ -28,7 +28,7 @@ Real Time Display Pages
 may not be clear to everyone what classes that table is describing.  Consider
 including a link to the school's gym class information?~~
 
-History - Kelly - Wednesday 5/30/2015
+History - Kelly - Wednesday 5/29/2015
 -------
 - The history page currently shows an error when there is no data for the
 associated day.  We should update this to render an empty graph or something
@@ -57,17 +57,17 @@ Like I said, let's try to keep it consistent but easy to use.  Any ideas here?~~
 
 Middleware Todo List
 ====================
-- Chaskin - Monday 5/4/2015 - Clean up javadoc comments and generate javadoc
+- Chaskin - Sunday 5/3/2015 - Clean up javadoc comments and generate javadoc
 for middleware components.
-- Chaskin - Monday 5/4/2015 - Write rest endpoint documentation in swagger or similar utility.
-- Chaskin - Monday 5/11/2015 - Bug Fixes
+- Chaskin - Sunday 5/3/2015 - Write rest endpoint documentation in swagger or similar utility.
+- Chaskin - Sunday 5/10/2015 - Bug Fixes
 - Chaskin - Tuesday 5/12/2015 - Todo List for Future Developers
 
-- Create a fake DB to mock 2-3 weeks of gym data.?
-- Perform more rigorous test cases for existing middleware components.?
+- Mark - Wednesday 4/29/2015 - Create a fake DB to mock 2-3 weeks of gym data.?
+- Chaskin - Perform more rigorous test cases for existing middleware components.?
 - James - Wednesday 5/13/2015 - Create cronjob to restart application on server reboot.?
 
-Untested Components
+Untested Components - Chaskin - Wednesday 5/13/2015
 -------------------
 
 ###DatabaseUtility###
