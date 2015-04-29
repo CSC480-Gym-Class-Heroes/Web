@@ -9,24 +9,24 @@ Frontend Todo List
 =============
 Overall
 -------
-- Glimmerglass is cammelCased in some placed but not in others.  Let's try to be
-consistent with the gym names.
+~~- Glimmerglass is cammelCased in some placed but not in others.  Let's try to be
+consistent with the gym names.~~
 
 
 Homepage
 --------
-- The homepage needs real information on the page.
+~`- The homepage needs real information on the page.
 The current page was good for an initial mock up, but since we are moving into
-user testing, we need a page that a real user would look at.
+user testing, we need a page that a real user would look at.~~
 
 Real Time Display Pages
 -----------------------
 - The tables displaying classes have a number associated with each class which
 - is indexed from zero.  Do we even need a number associated with each class?
 
-- The table displaying the classes is not labled with the current day, so it
+~~- The table displaying the classes is not labled with the current day, so it
 may not be clear to everyone what classes that table is describing.  Consider
-including a link to the school's gym class information?
+including a link to the school's gym class information?~~
 
 History
 -------
@@ -43,17 +43,17 @@ what time of day is busiest.
 
 Navbar
 ------
-- History is accessed through a drop down menu, but current count pages are not.
-Like I said, let's try to keep it consistent but easy to use.  Any ideas here?
+~~- History is accessed through a drop down menu, but current count pages are not.
+Like I said, let's try to keep it consistent but easy to use.  Any ideas here?~~
 
-- Clicking "Contact" does nothing.
+~~- Clicking "Contact" does nothing.~~
 
-- Clicking the history dropdown, you see three entries:
+~~- Clicking the history dropdown, you see three entries:
   - Cooper History
   - Glimmerglass History
-  - One more seperated link
+  - One more seperated link~~
 
-What is "One more seperated link" for?
+~~What is "One more seperated link" for?~~
 
 Middleware Todo List
 ====================
