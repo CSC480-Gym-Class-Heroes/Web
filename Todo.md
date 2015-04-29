@@ -2,7 +2,7 @@ Web Team Todo List
 ==================
 All components are due from their owners by end of day on their assigned due
 date.
-Chaskin - Monday 5/4/2015 - Update README.md with updates on "Setting Up a
+- Chaskin - Monday 5/4/2015 - Update README.md with updates on "Setting Up a
 Development Environment for future developers.
 
 Frontend Todo List
