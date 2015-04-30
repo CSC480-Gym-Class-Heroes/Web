@@ -34,12 +34,12 @@ History - Kelly - Wednesday 4/29/2015
 associated day.  We should update this to render an empty graph or something
 nicer.
 
-- It is very unclear what the history page is displaying.  Are we displaying a
-days worth of data, or a week, or a month?
+~~- It is very unclear what the history page is displaying.  Are we displaying a
+days worth of data, or a week, or a month?~~
 
-- The current x-axis on the history graph represents time, but it is currently
+~~- The current x-axis on the history graph represents time, but it is currently
 indexed in milliseconds.  This is very unhelpful to a user who wanted to know
-what time of day is busiest.
+what time of day is busiest.~~
 
 Navbar
 ------
