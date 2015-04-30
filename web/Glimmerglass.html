@@ -175,9 +175,12 @@
                                             var dnom = $("#averageInCount").text();
                                             var numer = $("#inCount").text();
                                             var per = (numer / dnom) * 100;
+                                            per = 54;
+                                            /*
                                             if ($("#averageInCount").text() == "") {
                                                 per = 0;
                                             }
+                                            */
                                             $("#attendanceLvl").text("Attendance Level: " + per + "%");
                                             mProgress(per);
                                         });

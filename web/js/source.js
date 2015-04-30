@@ -22,7 +22,7 @@ function getCurrentCount(gymName){
                 $("#currentCount").text(response);
             },
             error:function(xhr,sta,err){
-                alert("Get Current Count");
+               // alert("Get Current Count");
             }
         });
         }, millisecondsToWait);
@@ -42,7 +42,7 @@ function getInCount(gymName){
             $("#inCount").text(response);
         },
         error:function(xhr,sta,err){
-            alert("Get In Count");
+            //alert("Get In Count");
         }
     });
 }
@@ -114,7 +114,7 @@ function generateTable(gymName){
            });
         },
         error:function(xhr,sta,err){
-            alert("Generate Table");
+           // alert("Generate Table");
         }
     });
 }
@@ -134,7 +134,7 @@ function generateTable(gymName){
         },
         async:false,
         error:function(xhr,sta,err){
-                alert("History Date");
+                //alert("History Date");
         }
     });
     return retVal;
