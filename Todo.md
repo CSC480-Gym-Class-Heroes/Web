@@ -28,7 +28,7 @@ Real Time Display Pages
 may not be clear to everyone what classes that table is describing.  Consider
 including a link to the school's gym class information?~~
 
-History - Kelly - Wednesday 5/29/2015
+History - Kelly - Wednesday 4/29/2015
 -------
 - The history page currently shows an error when there is no data for the
 associated day.  We should update this to render an empty graph or something
