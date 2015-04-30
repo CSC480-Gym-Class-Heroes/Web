@@ -1,0 +1,60 @@
+.navbar-text >a{
+	color:inherit;
+	text-decoration: none;
+}
+
+body{
+	/*padding-top: 70px;*/
+	padding-bottom: 100px;
+}
+.panel-back {
+    //background-color:#F8F8F8;
+      background-color: #EFEFEF;
+
+
+}
+.noti-box {
+min-height: 100px;
+padding: 20px;
+}
+
+.noti-box .icon-box {
+display: block;
+float: left;
+margin: 0 15px 10px 0;
+width: 70px;
+height: 70px;
+line-height: 75px;
+vertical-align: middle;
+text-align: center;
+font-size: 40px;
+}
+.set-icon {
+    -webkit-border-radius: 50px;
+-moz-border-radius: 50px;
+border-radius: 50px;
+
+}
+    .bg-color-green {
+background-color: #00CE6F;
+color: #fff;
+}
+ .bg-color-blue {
+background-color: #A95DF0;
+color: #fff;
+}
+  .bg-color-red {
+background-color: #DB0630;
+color: #fff;
+}
+  .bg-color-brown {
+background-color: #B94A00;
+color: #fff;
+}
+.text-box p{
+    margin: 0 0 3px;
+}
+.main-text {
+    font-size: 25px;
+    font-weight:600;
+}
