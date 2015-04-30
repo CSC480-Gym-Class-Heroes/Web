@@ -31,8 +31,7 @@ including a link to the school's gym class information?~~
 History - Kelly - Wednesday 4/29/2015
 -------
 - The history page currently shows an error when there is no data for the
-associated day.  We should update this to render an empty graph or something
-nicer.
+associated week.  We should update this to default render data for each day of the week as zero unless given a new value.
 
 ~~- It is very unclear what the history page is displaying.  Are we displaying a
 days worth of data, or a week, or a month?~~
