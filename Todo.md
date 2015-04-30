@@ -62,6 +62,7 @@ for middleware components.
 - Chaskin - Sunday 5/3/2015 - Write rest endpoint documentation in swagger or similar utility.
 - Chaskin - Sunday 5/10/2015 - Bug Fixes
 - Chaskin - Tuesday 5/12/2015 - Todo List for Future Developers
+- Chaskin - Make the server "remember" what the state of the gym was in case of reboot?
 
 - Mark - Wednesday 4/29/2015 - Create a fake DB to mock 2-3 weeks of gym data.?
 - Chaskin - Perform more rigorous test cases for existing middleware components.?
