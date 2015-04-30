@@ -8,7 +8,9 @@ body{
 	padding-bottom: 100px;
 }
 .panel-back {
-    background-color:#F8F8F8;
+    //background-color:#F8F8F8;
+      background-color: #EFEFEF;
+
 
 }
 .noti-box {

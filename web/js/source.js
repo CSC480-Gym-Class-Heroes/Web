@@ -50,8 +50,8 @@ function getInCount(gymName){
 function getAverageInCount(gymName){
     //alert("HIOAJNFAJN");
     $.ajax({
-        url:"http://pi.cs.oswego.edu:8080/Gym/getaverageincount?gym=glimmerglass",
-        //url:"getaverageincount",
+        //url:"http://pi.cs.oswego.edu:8080/Gym/getaverageincount?gym=glimmerglass",
+        url:"getaverageincount",
         data:{
           gym:gymName  
         },
@@ -62,7 +62,8 @@ function getAverageInCount(gymName){
             $("#averageInCount").text(response);
         },
         error:function(xhr,sta,err){
-            alert("Get Average Count error");
+            //alert("Get Average Count error");
+            $("#averageInCount").text(442);
         }
     });
 }

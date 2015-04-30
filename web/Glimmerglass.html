@@ -7,6 +7,7 @@
         <title>Glimmerglass Gym</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/custom.css" rel="stylesheet">
+        <link href="css/newcss.css" rel="stylesheet">
         <link href="css/font-awesome.css" rel="stylesheet" >
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script type="text/javascript" src="js/source.js"></script>
@@ -14,8 +15,8 @@
             $(document).ready(function () {
                 generateTable("glimmerglass");
                 getCurrentCount("glimmerglass");
-                getInCount("cooper");
-                getAverageInCount("cooper");
+                getInCount("glimmerglass");
+                getAverageInCount("glimmerglass");
             });
         </script>
     </head>
@@ -52,7 +53,7 @@
         </nav>    
         <div class="container">
             <h1>Glimmerglass Gym</h1>
-            <div class="row">
+            <div class="row panel-back">
                 <div class="col-md-4 col-sm-4 col-xs-6">           
                     <div class="panel panel-back noti-box">
                         <span class="icon-box bg-color-red set-icon">
@@ -64,7 +65,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">           
+                <div class="col-md-4 col-sm-4 col-xs-6 panel-back">
+                    <span>
+                        <div>
+                            <div class="row clearfix panel-back">
+                                <div class="mProgressContain panel-back">
+                                    <div class="mProgress0"></div>
+                                    <div class="mProgress1"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 column roundContainX" id="profileEditX">
+                                <div class="editRoundX">
+                                    <a href="#" ng-click="companyprofile()">
+                                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/28222/person.png" class="image-responsive text-center" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                    <div class="text-box" style="padding-left: 100px; padding-top: 60px" >
+                        <p class="text-muted" id="attendanceLvl">Attendance Level</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-6" style="display:none;">           
                     <div class="panel panel-back noti-box">
                         <span class="icon-box bg-color-green set-icon">
                             <i class="fa fa-users"></i>
@@ -75,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">           
+                <div class="col-md-4 col-sm-4 col-xs-6" style="display:none;">           
                     <div class="panel panel-back noti-box">
                         <span class="icon-box bg-color-blue set-icon">
                             <i class="fa fa-star-o"></i>
@@ -121,22 +144,44 @@
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
         <script type="text/javascript">
-            function setDate() {
-                var d = new Date();
-                var weekday = new Array(7);
-                weekday[0] = "Sunday";
-                weekday[1] = "Monday";
-                weekday[2] = "Tuesday";
-                weekday[3] = "Wednesday";
-                weekday[4] = "Thursday";
-                weekday[5] = "Friday";
-                weekday[6] = "Saturday";
+                                        function setDate() {
+                                            var d = new Date();
+                                            var weekday = new Array(7);
+                                            weekday[0] = "Sunday";
+                                            weekday[1] = "Monday";
+                                            weekday[2] = "Tuesday";
+                                            weekday[3] = "Wednesday";
+                                            weekday[4] = "Thursday";
+                                            weekday[5] = "Friday";
+                                            weekday[6] = "Saturday";
 
-                var n = weekday[d.getDay()]
-                document.getElementById("dToday").innerHTML = n;
-            }
-            //I might get motaviated enought to move this to on of the js files
-            setDate();
+                                            var n = weekday[d.getDay()]
+                                            document.getElementById("dToday").innerHTML = n;
+                                        }
+                                        //I might get motaviated enought to move this to on of the js files
+                                        setDate();
+
+
+                                        var mProgress = function (val) {
+
+                                            $(".mProgress1").animate({
+                                                height: val
+                                            }, 1000, function () {
+                                            });
+
+                                        }
+
+                                        $(document).ready(function () {
+                                            var dnom = $("#averageInCount").text();
+                                            var numer = $("#inCount").text();
+                                            var per = (numer / dnom) * 100;
+                                            if ($("#averageInCount").text() == "") {
+                                                per = 0;
+                                            }
+                                            $("#attendanceLvl").text("Attendance Level: " + per + "%");
+                                            mProgress(per);
+                                        });
+
         </script>
     </body>
 </html>
