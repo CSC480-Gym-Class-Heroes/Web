@@ -139,27 +139,27 @@ function generateTable(gymName){
     });
     return retVal;
 }   	
-        google.load('visualization', '1.0', {'packages':['corechart']});
-        function drawChart(gymName) {
-            var historyData = getHistoryData(gymName);
-            var tableData = ([['People',  'Time']].concat(historyData));
-            var data = google.visualization.arrayToDataTable(tableData);
-            var options = {
-                title: 'Attendence per Day',
-                curveType: 'function',
-                legend: { position: 'bottom' }
-            };
+        
+function drawChart(gymName) {
+    var historyData = getHistoryData(gymName);
+    var tableData = ([['Day of the Week',  'People']].concat(historyData));
+    var data = google.visualization.arrayToDataTable(tableData);
+    var options = {
+        title: 'Attendence per Day',
+        curveType: 'function',
+        legend: { position: 'bottom' }
+    };
 				
-            // Instantiate and draw our chart, passing in some options.
-            function resize () {
-                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-                chart.draw(data, options);
-            }
-            window.onload = resize();
-            window.onresize = resize;
-            //var options = {'title':title,'width':w,'height':h,'chartArea':{left:0,top:10,width:"100%"}};
-            //var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-            //chart.draw(data,options);
-	}
+    // Instantiate and draw our chart, passing in some options.
+    function resize () {
+         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+    window.onload = resize();
+    window.onresize = resize;
+    var options = {'title':title,'width':w,'height':h,'chartArea':{left:0,top:10,width:"100%"}};
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    chart.draw(data,options);
+}
 
 		
