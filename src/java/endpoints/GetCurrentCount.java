@@ -17,8 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
 
 /**
- * Sends a client the current number of customers in the 
- * given gym.
+ * Sends a client the current number of customers in the given gym right now.
  * @baseURL /getcurrentcount
  * @requestParameter gym The name of the gym from which we want to retrieve the 
  * number of customers.

@@ -50,6 +50,11 @@ public class UpdateCountEndpointTest {
         loadLastWeek("glimmerglass");
     }
     
+    /**
+     * Populates the gym database with historical data associated with seven
+     * days ago by calling the updatecount endpoint repeatedly.
+     * @param gymName 
+     */
     public void loadLastWeek(String gymName){
         RestAssured.baseURI = "http://localhost:9999/Gym_Rats";
         Date beginningOfDay = DayOfWeek.getStartOfDayForLast(DayOfWeek.today());

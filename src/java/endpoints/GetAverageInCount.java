@@ -28,8 +28,8 @@ import model.Gym;
 public class GetAverageInCount extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Returns the average number of in's for a given day and gym.  day is an
+     * optional parameter with it's default being DayOfWeek.today().
      *
      * @param request servlet request
      * @param response servlet response

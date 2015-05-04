@@ -23,7 +23,9 @@ import javax.json.*;
 import javax.json.stream.JsonGenerator;
 
 /**
- *
+ * Returns a json view of the gym class schedule associated with the given day
+ * for the given gym.  day is an optional parameter with it's default value
+ * being today.
  * @author csaroff
  */
 @WebServlet(name = "GetGymClasses", urlPatterns = {"/getgymclasses"}, 

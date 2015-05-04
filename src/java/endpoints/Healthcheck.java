@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Returns a json view of the current health status of the raspberry pi in the
+ * given gym.  The health status is considered good if the pi has communicated
+ * its health status in the last three minutes.  lastResponseTime is the number
+ * of milliseconds since the server received a heartbeat from the pi.
  * @author csaroff
  */
 @WebServlet(name = "Healthcheck", urlPatterns = {"/healthcheck"})

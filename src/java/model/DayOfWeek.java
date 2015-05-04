@@ -90,6 +90,15 @@ public enum DayOfWeek {
         return getEndOfDay(getDateForLast(day));
     }
     
+    /**
+     * Returns the java.util.Calendar representation of the last occurrence of 
+     * day. If today is Tuesday, January 13th, 2015 and the given day is 
+     * TUESDAY, this method returns the Calendar representation of Tuesday,
+     * January 6th, 2015.
+     * @param day
+     * @return the java.util.Calendar representation of the last occurrence of 
+     * day.
+     */
     private static Calendar getDateForLast(DayOfWeek day){
         Calendar calendar = Calendar.getInstance(
                 TimeZone.getTimeZone("America/New_York"), Locale.US
@@ -97,23 +106,29 @@ public enum DayOfWeek {
         calendar.add(Calendar.DATE, today().equals(day)?-7:(-1)*Math.abs(day.value-today().value));
         return calendar;
     }
+    
+    /**
+     * Returns the timestamp of the beginning of the day for the given calendar
+     * value
+     * @param calendar
+     * @return the timestamp of the beginning of the day for the given 
+     * timestamp.
+     */
     private static Date getStartOfDay(Calendar calendar) {
-        //System.out.println("Start " + calendar.getTime());
-        //System.out.println("Start " + calendar.getTimeInMillis());
-        //System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
         calendar.set(Calendar.HOUR_OF_DAY, 0);
-        //System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
         calendar.set(Calendar.MINUTE, 0);
-        //System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
         calendar.set(Calendar.SECOND, 0);
-        //System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
         calendar.set(Calendar.MILLISECOND, 0);
-        //System.out.println("getStartOfDay input = " + new Date(calendar.getTimeInMillis()));
-        //System.out.println("End " + calendar.getTime());
-        //System.out.println("End " + calendar.getTimeInMillis());
         return calendar.getTime();
     }
 
+    /**
+     * Returns the timestamp of the end of the day for the given calendar
+     * value
+     * @param calendar
+     * @return the timestamp of the end of the day for the given 
+     * timestamp.
+     */
     private static Date getEndOfDay(Calendar calendar) {
         //System.out.println("getEndOfDay input = " + new Date(calendar.getTimeInMillis()));
         calendar.set(Calendar.HOUR_OF_DAY, 23);

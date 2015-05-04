@@ -30,7 +30,11 @@ import model.GymClass;
 import model.containers.CountDatapoint;
 
 /**
- *
+ * Retrieves the historical data associated with the number of people who
+ * were inside the given gym on the last occurrence of the given day.  If 
+ * day.equals(gym.today()) or the consumer of this service accepts the
+ * default value of day, the historical data associated with seven day ago
+ * is used.
  * @author csaroff
  */
 @WebServlet(name = "GetCountData", urlPatterns = {"/getcountdata"}, initParams = {
@@ -39,9 +43,6 @@ import model.containers.CountDatapoint;
 public class GetCountData extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Retrieves the maximum number people that have ever been in the given gym.
+ * Returns the maximum number people that have ever been in the given gym.
  * @baseURL /getmaxcount
  * @requestParameter gym The name of the gym from which we want to retrieve the 
  * number of customers.

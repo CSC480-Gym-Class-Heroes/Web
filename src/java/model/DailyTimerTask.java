@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.TimerTask;
 
 /**
- *
+ * Performs all the daily tasks that should be done once a day.  These tasks
+ * updating the averageInCountTable to include todays values and reseting the
+ * gym's daily current count and in count.
  * @author csaroff
  */
 public class DailyTimerTask extends TimerTask{

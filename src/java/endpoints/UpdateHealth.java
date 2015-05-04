@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * The heartbeat of the raspberry pi.  If this endpoint hasn't been called
+ * within three minutes of the last time it was called, the pi is considered
+ * unhealthy.
  * @author csaroff
  */
 @WebServlet(name = "UpdateHealth", urlPatterns = {"/updatehealth"})

@@ -17,7 +17,7 @@ import model.DatabaseUtility;
 import model.Gym;
 
 /**
- *
+ * Returns the number of people who have walked into the gym today.
  * @author csaroff
  */
 @WebServlet(name = "GetInCount", urlPatterns = {"/getincount"}, initParams = {

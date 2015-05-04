@@ -15,7 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
 /**
- *
+ * Updates the current number of people who are in the given gym at the given
+ * time.
+ * @baseURL /updatecount
+ * @requestParameter gym The name of the gym to update the count for.
+ * @requestParameter timestamp A long value representing milliseconds since 
+ * the epoch when someone last walked in or out of the gym.
+ * @requestParameter count The number of people who are currently in the gym.
  * @author csaroff
  */
 @WebServlet(name = "UpdateCount", urlPatterns = {"/updatecount"})
@@ -23,12 +29,6 @@ public class UpdateCount extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
-     * @baseURL /updatecount
-     * @requestParameter gym The name of the gym to update the count for.
-     * @requestParameter timestamp A long value representing milliseconds since 
-     * the epoch when someone last walked in or out of the gym.
-     * @requestParameter count The number of people who are currently in the gym.
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */

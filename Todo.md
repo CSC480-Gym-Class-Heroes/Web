@@ -2,8 +2,8 @@ Web Team Todo List
 ==================
 All components are due from their owners by end of day on their assigned due
 date.
-- Chaskin - Sunday 5/3/2015 - Update README.md with updates on "Setting Up a
-Development Environment for future developers."
+- ~~Chaskin - Sunday 5/3/2015 - Update README.md with updates on "Setting Up a
+Development Environment for future developers."~~
 
 Frontend Todo List
 =============
@@ -56,8 +56,8 @@ Like I said, let's try to keep it consistent but easy to use.  Any ideas here?~~
 
 Middleware Todo List
 ====================
-- Chaskin - Sunday 5/3/2015 - Clean up javadoc comments and generate javadoc
-for middleware components.
+- ~~Chaskin - Sunday 5/3/2015 - Clean up javadoc comments and generate javadoc
+for middleware components.~~
 - Chaskin - Sunday 5/3/2015 - Write rest endpoint documentation in swagger or similar utility.
 - Chaskin - Sunday 5/10/2015 - Bug Fixes
 - Chaskin - Tuesday 5/12/2015 - Todo List for Future Developers

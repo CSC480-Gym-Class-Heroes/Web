@@ -12,12 +12,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import javax.servlet.annotation.WebListener;
 /**
- *
+ * This servlet defines the operations that are performed on startup and 
+ * shutdown of this web application.  
  * @author csaroff
  */
 @WebListener
 public class StartupShutdownListener implements ServletContextListener{
     private static ServletContext servletContext;
+    
+    /**
+     * Initializes the database information such as the JDBC url, username and
+     * password.  
+     * @param sce 
+     */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         servletContext = sce.getServletContext();
